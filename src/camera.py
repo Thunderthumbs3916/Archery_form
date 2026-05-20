@@ -1,20 +1,16 @@
 import numpy as np
 import cv2 as cv
-def startVideo():
-    cap = cv.VideoCapture(0)
-    if not cap.isOpened():
-        print("Cannot open camera")
-        exit()
-    while True:
-        ret, frame = cap.read()
+
+
+class startVideo():
+    def __init__(self, camera_index=0):
+        self.cap = cv.VideoCapture(camera_index)
+
+    def get_frame(self):
+        ret, frame = self.cap.read()
 
         if not ret:
-            print("Can't receive frame (stream end?). Exiting ...")
-            break
-
-        cv.imshow('frame', frame)
-        if cv.waitKey(1) == ord('q'):
-            break
-
-    cap.release()
-    cv.destroyAllWindows()
+            return None
+        return frame
+    def release(self):
+        self.cap.release()
