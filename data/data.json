@@ -1,3 +1,7 @@
 {
-
+  "Training1": {
+    "End1": {
+      "Shot1": {"wrist": [], "draw_elbow": [], "bow_elbow": [], "draw_shoulder": [], "bow_shoulder": [], "nose": [], "sternum": []} //t, x, y
+    }
+  }
 }
