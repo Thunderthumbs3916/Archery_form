@@ -1,2 +1,4 @@
 /.gitignor/.venv/share/man/man1
 /.gitignor
+/.venv
+/.idea
