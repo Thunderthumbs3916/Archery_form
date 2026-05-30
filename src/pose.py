@@ -22,3 +22,19 @@ class pose():
                 self.mp_pose.POSE_CONNECTIONS
             )
         return frame, landmarks
+
+    def get_coor(self, part: str, landmarks: list):
+        if part == "Nose":
+            return landmarks[0]
+        elif part == "LShoulder":
+            return landmarks[11]
+        elif part == "RShoulder":
+            return landmarks[12]
+        elif part == "LElbow":
+            return landmarks[13]
+        elif part == "RElbow":
+            return landmarks[14]
+        elif part == "LWrist":
+            return landmarks[15]
+        elif part == "RWrist":
+            return landmarks[16]

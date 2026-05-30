@@ -1,7 +1,12 @@
 {
   "Training1": {
-    "End1": {
-      "Shot1": {"wrist": [], "draw_elbow": [], "bow_elbow": [], "draw_shoulder": [], "bow_shoulder": [], "nose": [], "sternum": []} //t, x, y
+    "Shot1": {
+      "wrist": [{"t": -1, "x": -1, "y": -1}],
+      "draw_elbow": [{"t": -1, "x": -1, "y": -1}],
+      "bow_elbow": [{"t": -1, "x": -1, "y": -1}],
+      "draw_shoulder": [{"t": -1, "x": -1, "y": -1}],
+      "bow_shoulder": [{"t": -1, "x": -1, "y": -1}],
+      "nose": [{"t": -1, "x": -1, "y": -1}]
     }
   }
 }
