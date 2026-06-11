@@ -6,11 +6,9 @@ running = True
 pose = src.pose.pose()
 cam = src.camera.startVideo()
 prev_wrist = None
-stable_frames = 0
-frame_buffer = []
-movement = True
+anchor = False
 
-WRIST_NOSE_DIST_THRESHOLD = 0.21
+WRIST_NOSE_DIST_THRESHOLD = 0.2
 BUFFER_SIZE = 15
 MOVEMENT_THRESHOLD = 0.01
 
@@ -31,6 +29,21 @@ def distance(part1: str or list, part2: str or list, landmarks: list, w=0, h=0) 
     return ((dx ** 2) + (dy ** 2)) ** 0.5
 
 
+stable_frames = 0
+movement = True
+def anchor_detection(prev_wrist, wrist, nose_wrist_dist, landmarks):
+    global stable_frames, movement
+    if prev_wrist is not None:
+        move = distance(wrist, prev_wrist, landmarks)
+        # print(move)
+        if move < MOVEMENT_THRESHOLD:
+            stable_frames += 1
+        else:
+            stable_frames = 0
+        movement = stable_frames < 10
+    return nose_wrist_dist <= WRIST_NOSE_DIST_THRESHOLD and not movement
+
+
 while True:
     while running:
         frame = cam.get_frame()
@@ -42,26 +55,15 @@ while True:
             prev_wrist = None
             continue
 
-        # Old anchor detection
-        # print("nose wrist " + str((distance("Nose", "RWrist", landmarks, w, h))))
-        # if (distance("Nose", "RWrist", landmarks, w, h)) <= 115 and (distance("RShoulder", "RElbow", landmarks, w, h) > 115):
-        #     cv2.putText(frame, "Anchor", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-
+        # Anchor detection
+        '''Old anchor detection
+        print("nose wrist " + str((distance("Nose", "RWrist", landmarks, w, h))))
+        if (distance("Nose", "RWrist", landmarks, w, h)) <= 115 and (distance("RShoulder", "RElbow", landmarks, w, h) > 115):
+             cv2.putText(frame, "Anchor", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)'''
         # New anchor detection
         nose_wrist_dist = distance("RWrist", "Nose", landmarks)
         wrist = pose.get_coor("RWrist", landmarks)
-        if prev_wrist is not None:
-            move = distance(wrist, prev_wrist, landmarks)
-            print(move)
-            if move < MOVEMENT_THRESHOLD:
-                stable_frames += 1
-                frame_buffer.append(wrist)
-                if len(frame_buffer) > BUFFER_SIZE:
-                    frame_buffer.pop(0)
-            else:
-                stable_frames = 0
-            movement = stable_frames < 10
-        if nose_wrist_dist <= WRIST_NOSE_DIST_THRESHOLD and not movement:
+        if anchor_detection(prev_wrist, wrist, nose_wrist_dist, landmarks):
             cv2.putText(frame, "Anchor", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         prev_wrist = wrist
 
