@@ -74,6 +74,10 @@ def true_anchor(raw_anchor):
         anchor = False
     return anchor
 
+def save_data_locally():
+    data_dict["draw_wrist"].append(
+        {"t": frame_num, "x": pose.get_coor("RWrist", landmarks).x, "y": pose.get_coor("RWrist", landmarks).y})
+
 
 while True:
     while running:
@@ -94,6 +98,7 @@ while True:
         if true_anchor(raw_anchor):
             cv2.putText(frame, "Anchor", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
+            print(data_dict)
             prev_anchor = True
         else:
             prev_anchor = False
