@@ -2,6 +2,7 @@ import src.camera
 import cv2
 import src.pose
 
+frame_num = 0
 running = True
 pose = src.pose.pose()
 cam = src.camera.startVideo()
@@ -10,7 +11,8 @@ anchor = False
 anchor_frames = 0
 lost_anchor_frames = 0
 
-data_dict = {"wrist": [{"t": -1, "x": -1, "y": -1}],
+data_dict = {"draw_wrist": [{"t": -1, "x": -1, "y": -1}],
+             "bow_wrist": [{"t": -1, "x": -1, "y": -1}],
              "draw_elbow": [{"t": -1, "x": -1, "y": -1}],
              "bow_elbow": [{"t": -1, "x": -1, "y": -1}],
              "draw_shoulder": [{"t": -1, "x": -1, "y": -1}],
@@ -42,6 +44,7 @@ def distance(part1: str or list, part2: str or list, landmarks: list, w=0, h=0) 
 stable_frames = 0
 movement = True
 
+
 def anchor_detection(prev_wrist, wrist, wrist_elbow_height, landmarks):
     global stable_frames, movement
     if prev_wrist is not None:
@@ -52,7 +55,9 @@ def anchor_detection(prev_wrist, wrist, wrist_elbow_height, landmarks):
         else:
             stable_frames = 0
         movement = stable_frames < 10
-    return wrist_elbow_height and not movement
+    return wrist_elbow_height and not movement and (distance("RWrist", "LWrist", landmarks) > distance("RWrist", "Nose", landmarks))
+
+
 def true_anchor(raw_anchor):
     global anchor_frames, anchor, lost_anchor_frames
 
@@ -73,26 +78,29 @@ def true_anchor(raw_anchor):
 while True:
     while running:
         frame = cam.get_frame()
-        h, w = frame.shape[:2]
-        anchor = False
         if frame is None:
             break
+        h, w = frame.shape[:2]
+        frame_num += 1
         frame, landmarks = pose.process(frame)
         if landmarks is None:
             prev_wrist = None
             continue
 
-        #nose_wrist_dist = distance("RWrist", "Nose", landmarks)
+        # nose_wrist_dist = distance("RWrist", "Nose", landmarks)
         wrist_elbow_height = pose.get_coor("RElbow", landmarks).y < pose.get_coor("RWrist", landmarks).y
         wrist = pose.get_coor("RWrist", landmarks)
         raw_anchor = anchor_detection(prev_wrist, wrist, wrist_elbow_height, landmarks)
         if true_anchor(raw_anchor):
             cv2.putText(frame, "Anchor", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+            prev_anchor = True
+        else:
+            prev_anchor = False
         prev_wrist = wrist
 
         cv2.imshow("Video", frame)
         cv2.waitKey(1)
-
         if cv2.getWindowProperty("Video", cv2.WND_PROP_VISIBLE) < 1:
             running = False
     cam.release()
