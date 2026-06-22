@@ -42,7 +42,7 @@ def distance(part1: str or list, part2: str or list, landmarks: list, w=0, h=0) 
 stable_frames = 0
 movement = True
 
-def anchor_detection(prev_wrist, wrist, nose_wrist_dist, landmarks):
+def anchor_detection(prev_wrist, wrist, wrist_elbow_height, landmarks):
     global stable_frames, movement
     if prev_wrist is not None:
         move = distance(wrist, prev_wrist, landmarks)
@@ -52,7 +52,7 @@ def anchor_detection(prev_wrist, wrist, nose_wrist_dist, landmarks):
         else:
             stable_frames = 0
         movement = stable_frames < 10
-    return nose_wrist_dist <= WRIST_NOSE_DIST_THRESHOLD and not movement
+    return wrist_elbow_height and not movement
 def true_anchor(raw_anchor):
     global anchor_frames, anchor, lost_anchor_frames
 
@@ -82,10 +82,10 @@ while True:
             prev_wrist = None
             continue
 
-        nose_wrist_dist = distance("RWrist", "Nose", landmarks)
-        print(nose_wrist_dist)
+        #nose_wrist_dist = distance("RWrist", "Nose", landmarks)
+        wrist_elbow_height = pose.get_coor("RElbow", landmarks).y < pose.get_coor("RWrist", landmarks).y
         wrist = pose.get_coor("RWrist", landmarks)
-        raw_anchor = anchor_detection(prev_wrist, wrist, nose_wrist_dist, landmarks)
+        raw_anchor = anchor_detection(prev_wrist, wrist, wrist_elbow_height, landmarks)
         if true_anchor(raw_anchor):
             cv2.putText(frame, "Anchor", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         prev_wrist = wrist
