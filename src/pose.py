@@ -45,19 +45,19 @@ class pose():
         return frame, landmarks
 
     def get_coor(self, part: str, landmarks: list):
-        if part == "Nose":
+        if part == "Nose" or part == "nose":
             return landmarks[0]
-        elif part == "LShoulder":
+        elif part == "LShoulder" or part == "bow_shoulder":
             return landmarks[11]
-        elif part == "RShoulder":
+        elif part == "RShoulder" or part == "draw_shoulder":
             return landmarks[12]
-        elif part == "LElbow":
+        elif part == "LElbow" or part == "bow_elbow":
             return landmarks[13]
-        elif part == "RElbow":
+        elif part == "RElbow" or part == "draw_elbow":
             return landmarks[14]
-        elif part == "LWrist":
+        elif part == "LWrist" or part == "bow_wrist":
             return landmarks[15]
-        elif part == "RWrist":
+        elif part == "RWrist" or part == "draw_wrist":
             return landmarks[16]
         else:
             return None

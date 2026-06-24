@@ -1,16 +1,26 @@
 import src.camera
 import cv2
 import src.pose
+import json
 
+try:
+    with open("data/data.json", "r") as f:
+        all_shots = json.load(f)
+except FileNotFoundError:
+    all_shots = {}
+
+shot_num = len(all_shots)
 frame_num = 0
 running = True
 pose = src.pose.pose()
 cam = src.camera.startVideo()
 prev_wrist = None
 anchor = False
+prev_anchor = False
 anchor_frames = 0
 lost_anchor_frames = 0
-
+stable_frames = 0
+movement = True
 data_dict = {"draw_wrist": [{"t": -1, "x": -1, "y": -1}],
              "bow_wrist": [{"t": -1, "x": -1, "y": -1}],
              "draw_elbow": [{"t": -1, "x": -1, "y": -1}],
@@ -41,10 +51,6 @@ def distance(part1: str or list, part2: str or list, landmarks: list, w=0, h=0) 
     return ((dx ** 2) + (dy ** 2)) ** 0.5
 
 
-stable_frames = 0
-movement = True
-
-
 def anchor_detection(prev_wrist, wrist, wrist_elbow_height, landmarks):
     global stable_frames, movement
     if prev_wrist is not None:
@@ -55,7 +61,8 @@ def anchor_detection(prev_wrist, wrist, wrist_elbow_height, landmarks):
         else:
             stable_frames = 0
         movement = stable_frames < 10
-    return wrist_elbow_height and not movement and (distance("RWrist", "LWrist", landmarks) > distance("RWrist", "Nose", landmarks))
+    return wrist_elbow_height and not movement and (
+            distance("RWrist", "LWrist", landmarks) > distance("RWrist", "Nose", landmarks))
 
 
 def true_anchor(raw_anchor):
@@ -74,9 +81,12 @@ def true_anchor(raw_anchor):
         anchor = False
     return anchor
 
-def save_data_locally():
-    data_dict["draw_wrist"].append(
-        {"t": frame_num, "x": pose.get_coor("RWrist", landmarks).x, "y": pose.get_coor("RWrist", landmarks).y})
+
+def save_data_locally(frame_num, landmarks):
+    temp_list = ["draw_wrist", "bow_wrist", "draw_elbow", "bow_elbow", "draw_shoulder", "bow_shoulder", "nose"]
+    for part in temp_list:
+        data_dict[part].append(
+            {"t": frame_num, "x": pose.get_coor(part, landmarks).x, "y": pose.get_coor(part, landmarks).y})
 
 
 while True:
@@ -91,18 +101,31 @@ while True:
             prev_wrist = None
             continue
 
-        # nose_wrist_dist = distance("RWrist", "Nose", landmarks)
         wrist_elbow_height = pose.get_coor("RElbow", landmarks).y < pose.get_coor("RWrist", landmarks).y
         wrist = pose.get_coor("RWrist", landmarks)
         raw_anchor = anchor_detection(prev_wrist, wrist, wrist_elbow_height, landmarks)
         if true_anchor(raw_anchor):
             cv2.putText(frame, "Anchor", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-
-            print(data_dict)
+            save_data_locally(frame_num, landmarks)
             prev_anchor = True
         else:
+            if prev_anchor:
+                shot_num += 1
+                all_shots[f"Shot{shot_num}"] = {"Anchor": data_dict}
+                data_dict = {
+                    "draw_wrist": [],
+                    "bow_wrist": [],
+                    "draw_elbow": [],
+                    "bow_elbow": [],
+                    "draw_shoulder": [],
+                    "bow_shoulder": [],
+                    "nose": []
+                }
             prev_anchor = False
         prev_wrist = wrist
+
+        with open('data/data.json', "w") as f:
+            json.dump(all_shots, f, indent=2)
 
         cv2.imshow("Video", frame)
         cv2.waitKey(1)
@@ -116,4 +139,5 @@ while True:
         continue
     else:
         # After ends
+        print(data_dict)
         break
