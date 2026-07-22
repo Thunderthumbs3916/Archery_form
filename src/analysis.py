@@ -1,5 +1,17 @@
+import math
+
 def distance(x1, y1, x2, y2):
     return (((x2-x1)**2) + ((y2-y1)**2))**0.5
+def angle(p1: dict, p2: dict, p3: dict):
+    #law of cosines, finding angle at p2
+    a = distance(p2.x, p2.y, p3.x, p3.y)
+    b = distance(p1.x, p1.y, p2.x, p2.y)
+    c = distance(p1.x, p1.y, p3.x, p3.y)
+
+    temp = ((c**2) - (a**2) - (b**2))/(2*a*b)
+
+    angle = math.degrees(math.acos(temp))
+    return angle
 
 class analyse():
     def __init__(self):
@@ -20,7 +32,7 @@ class analyse():
 
         return (totx/count), (toty/count)
 
-    def displacement(self, points: dict, part):
+    def mean_displacement(self, points: dict, part):
         meanx, meany = self.mean_position(points, part)
         tot_dist = 0.00
         count = 0
@@ -31,13 +43,6 @@ class analyse():
                     count += 1
 
         return tot_dist/count
-
-    def angle(self, p1: dict, p2: dict, p3: dict):
-        a = distance(p2.x, p2.y, p3.x, p3.y)
-        b = distance(p1.x, p1.y, p2.x, p2.y)
-        c = distance(p1.x, p1.y, p3.x, p3.y)
-
-        
 
     #def elbow_angle_displacement(self, shoulder, elbow, wrist):
 
