@@ -1,3 +1,6 @@
+def distance(x1, y1, x2, y2):
+    return (((x2-x1)**2) + ((y2-y1)**2))**0.5
+
 class analyse():
     def __init__(self):
 
@@ -15,11 +18,26 @@ class analyse():
                         totx = totx + frame.x
                         toty = toty + frame.y
 
-        return [(totx/count), (toty/count)]
+        return (totx/count), (toty/count)
 
-    #def displacement(self, points):
+    def displacement(self, points: dict, part):
+        meanx, meany = self.mean_position(points, part)
+        tot_dist = 0.00
+        count = 0
+        for key,value in points.items():
+            if key==part:
+                for frame in value:
+                    tot_dist += distance(meanx, meany, frame.x, frame.y)
+                    count += 1
 
-    #def angle(self, p1, p2, p3):
+        return tot_dist/count
+
+    def angle(self, p1: dict, p2: dict, p3: dict):
+        a = distance(p2.x, p2.y, p3.x, p3.y)
+        b = distance(p1.x, p1.y, p2.x, p2.y)
+        c = distance(p1.x, p1.y, p3.x, p3.y)
+
+        
 
     #def elbow_angle_displacement(self, shoulder, elbow, wrist):
 
