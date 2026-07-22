@@ -121,6 +121,7 @@ while True:
                     "bow_shoulder": [],
                     "nose": []
                 }
+                
             prev_anchor = False
         prev_wrist = wrist
 
