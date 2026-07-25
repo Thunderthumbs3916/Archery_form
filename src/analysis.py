@@ -25,7 +25,12 @@ class analyse():
     def __init__(self):
         pass
 
-    # def anchor_analysis(self, data):
+    def anchor_analysis(self, data):
+        print("\n -------------New shot--------- \n")
+        print(f"Mean displacement of draw/right wrist: {self.mean_displacement(data, 'draw_wrist')}")
+        print(f"Mean displacement of nose: {self.mean_displacement(data, 'nose')}")
+        print(f"Mean displacement of angle made by draw wrist, shoulder and elbow: {self.elbow_angle_displacement(data)}")
+
 
     def mean_position(self, points: dict, part):
         totx = 0

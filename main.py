@@ -2,6 +2,7 @@ import src.camera
 import cv2
 import src.pose
 import json
+import src.analysis
 
 try:
     with open("data/data.json", "r") as f:
@@ -21,13 +22,15 @@ anchor_frames = 0
 lost_anchor_frames = 0
 stable_frames = 0
 movement = True
-data_dict = {"draw_wrist": [{"t": -1, "x": -1, "y": -1}],
-             "bow_wrist": [{"t": -1, "x": -1, "y": -1}],
-             "draw_elbow": [{"t": -1, "x": -1, "y": -1}],
-             "bow_elbow": [{"t": -1, "x": -1, "y": -1}],
-             "draw_shoulder": [{"t": -1, "x": -1, "y": -1}],
-             "bow_shoulder": [{"t": -1, "x": -1, "y": -1}],
-             "nose": [{"t": -1, "x": -1, "y": -1}]}
+data_dict = {
+    "draw_wrist": [],
+    "bow_wrist": [],
+    "draw_elbow": [],
+    "bow_elbow": [],
+    "draw_shoulder": [],
+    "bow_shoulder": [],
+    "nose": []
+    }
 
 WRIST_NOSE_DIST_THRESHOLD = 0.24
 BUFFER_SIZE = 15
@@ -111,6 +114,7 @@ while True:
         else:
             if prev_anchor:
                 shot_num += 1
+
                 all_shots[f"Shot{shot_num}"] = {"Anchor": data_dict}
                 data_dict = {
                     "draw_wrist": [],
