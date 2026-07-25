@@ -31,6 +31,7 @@ data_dict = {
     "bow_shoulder": [],
     "nose": []
     }
+analyse = src.analysis.analyse()
 
 WRIST_NOSE_DIST_THRESHOLD = 0.24
 BUFFER_SIZE = 15
@@ -114,7 +115,7 @@ while True:
         else:
             if prev_anchor:
                 shot_num += 1
-
+                analyse.anchor_analysis(data_dict)
                 all_shots[f"Shot{shot_num}"] = {"Anchor": data_dict}
                 data_dict = {
                     "draw_wrist": [],

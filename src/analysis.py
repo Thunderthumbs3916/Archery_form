@@ -27,8 +27,8 @@ class analyse():
 
     def anchor_analysis(self, data):
         print("\n -------------New shot--------- \n")
-        print(f"Mean displacement of draw/right wrist: {self.mean_displacement(data, 'draw_wrist')}")
-        print(f"Mean displacement of nose: {self.mean_displacement(data, 'nose')}")
+        print(f"Mean displacement of draw/right wrist: {self.mean_displacement(data, 'draw_wrist') * 1000}")
+        print(f"Mean displacement of nose: {self.mean_displacement(data, 'nose') * 10000}")
         print(f"Mean displacement of angle made by draw wrist, shoulder and elbow: {self.elbow_angle_displacement(data)}")
 
 
