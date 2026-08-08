@@ -1,4 +1,5 @@
 import math
+import json
 
 
 def distance(x1, y1, x2, y2):
@@ -26,11 +27,23 @@ class analyse():
         pass
 
     def anchor_analysis(self, data):
-        print("\n -------------New shot--------- \n")
-        print(f"Mean displacement of draw/right wrist: {self.mean_displacement(data, 'draw_wrist') * 1000}")
-        print(f"Mean displacement of nose: {self.mean_displacement(data, 'nose') * 10000}")
-        print(f"Mean displacement of angle made by draw wrist, shoulder and elbow: {self.elbow_angle_displacement(data)}")
 
+        mystr = ("\n -------------New shot--------- \n "
+               f"Mean displacement of draw/right wrist: {self.mean_displacement(data, 'draw_wrist') * 1000} \n"
+               f"Mean displacement of nose: {self.mean_displacement(data, 'nose') * 10000} \n"
+               f"Mean displacement of angle made by draw wrist, shoulder and elbow: {self.elbow_angle_displacement(data)}")
+        print(mystr)
+        try:
+            with open("data/samples.json", "r") as f:
+                curr_samples = json.load(f)
+        except FileNotFoundError:
+            curr_samples = {}
+        shot_num = len(curr_samples)
+
+        curr_samples[shot_num] = mystr
+
+        with open('data/samples.json', "w") as f:
+            json.dump(curr_samples, f, indent=2)
 
     def mean_position(self, points: dict, part):
         totx = 0

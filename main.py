@@ -66,13 +66,13 @@ def anchor_detection(prev_wrist, wrist, shoulder_elbow_height, landmarks):
         else:
             stable_frames = 0
         movement = stable_frames < 5 # v1=10
-        print(
+        '''print(
             shoulder_elbow_height,
             not movement,
             distance("RWrist", "LWrist", landmarks),
             distance("RWrist", "Nose", landmarks),
             raw_anchor
-        )
+        )'''
 
     return shoulder_elbow_height and not movement and (
             distance("RWrist", "LWrist", landmarks) > distance("RWrist", "Nose", landmarks))
@@ -109,8 +109,12 @@ while True:
             break
         h, w = frame.shape[:2]
         frame_num += 1
+
         frame, landmarks = pose.process(frame)
+
         if landmarks is None:
+            cv2.imshow("Video", frame)
+            cv2.waitKey(1)
             prev_wrist = None
             continue
 
