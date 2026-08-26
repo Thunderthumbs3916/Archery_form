@@ -1,5 +1,5 @@
-import mediapipe as mp
-import sys
+#import mediapipe as mp
+#import sys
 
 #print(mp.__file__)
 #print(mp.__version__)
@@ -8,21 +8,40 @@ import sys
 
 #print(sys.version)
 
-import cv2
+# import cv2
+#
+# cap = cv2.VideoCapture(2, cv2.CAP_DSHOW)
+#
+# while True:
+#     ret, frame = cap.read()
+#     print(ret)
+#
+#     if not ret:
+#         break
+#
+#     cv2.imshow("Camera 2", frame)
+#
+#     if cv2.waitKey(1) == 27:   # ESC
+#         break
+#
+# cap.release()
+# cv2.destroyAllWindows()
 
-cap = cv2.VideoCapture(2, cv2.CAP_DSHOW)
+import json
+import src.analysis
 
-while True:
-    ret, frame = cap.read()
-    print(ret)
+analyse = src.analysis.analyse()
+shot_num = 0
 
-    if not ret:
-        break
+with open("data/data.json", "r") as f:
+    all_shots = json.load(f)
 
-    cv2.imshow("Camera 2", frame)
+with open("data/samples.json", "w") as f:
+    json.dump({}, f)
 
-    if cv2.waitKey(1) == 27:   # ESC
-        break
+running_shots = {}
 
-cap.release()
-cv2.destroyAllWindows()
+for shot_name, shot_data in all_shots.items():
+    running_shots[shot_name] = shot_data
+    shot_str = analyse.anchor_analysis(shot_data["Anchor"], all_shots, shot_num)
+    shot_num += 1

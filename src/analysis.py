@@ -21,17 +21,19 @@ def angle(p1: dict, p2: dict, p3: dict):
 
     return math.degrees(math.acos(temp))
 
+
 def displacement(list):
     if len(list) != 0:
-        if len(list[0]) == 2:
+        if type(list[0]) == type({"wofheof": "eofhiw"}):
             meanx = sum(p["x"] for p in list) / len(list)
             meany = sum(p["y"] for p in list) / len(list)
             tot = sum(distance(meanx, meany, p["x"], p["y"]) for p in list)
         else:
             mean_val = sum(list) / len(list)
-            tot = sum(abs(v-mean_val) for v in list)
+            tot = sum(abs(v - mean_val) for v in list)
 
-        return tot/len(list)
+        return tot / len(list)
+
 
 class analyse():
     def __init__(self):
@@ -43,12 +45,11 @@ class analyse():
                 f"Mean displacment of nose: {nose_disp}\n"
                 f"Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
 
-
     def anchor_analysis(self, data, all_shots, shot_num):
 
-        anchor_str = self.format_analysis("New Shot", self.mean_displacement(data, "draw_wrist")*1000,
-                                     self.mean_displacement(data, "nose")*10000,
-                                     self.elbow_angle_displacement(data))
+        anchor_str = self.format_analysis("New Shot", self.mean_displacement(data, "draw_wrist") * 1000,
+                                          self.mean_displacement(data, "nose") * 10000,
+                                          self.elbow_angle_displacement(data))
         combined_str = self.cross_shot_analysis(all_shots)
         self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str)
         print(anchor_str + "\n" + combined_str)
@@ -62,7 +63,7 @@ class analyse():
         except FileNotFoundError:
             curr_samples = {}
 
-        curr_samples[shot_key] = {shot_key: shot_str, "combined": combined_str}
+        curr_samples[shot_key] = {"small_str": shot_str, "combined": combined_str}
 
         with open('data/samples.json', "w") as f:
             json.dump(curr_samples, f, indent=2)
@@ -77,18 +78,21 @@ class analyse():
 
             wristx, wristy = self.mean_position(data, "draw_wrist")
             if wristx is not None and wristy is not None:
-                wrist_means.append({"x": wristx, "y": wristy})
+                if wristx > 0 and wristy > 0:
+                    wrist_means.append({"x": wristx, "y": wristy})
 
             nosex, nosey = self.mean_position(data, "nose")
             if nosex is not None and nosey is not None:
-                nose_means.append({"x": nosex, "y": nosey})
+                if nosex > 0 and nosey > 0:
+                    nose_means.append({"x": nosex, "y": nosey})
 
             mean_angle = self.mean_angle(data)
             if mean_angle is not None:
-                angle_means.append(mean_angle)
+                if mean_angle > 0
+                    angle_means.append(mean_angle)
 
         mystr = self.format_analysis(
-            "----- All shots combined -----",
+            "All shots combined",
             displacement(wrist_means) * 1000,
             displacement(nose_means) * 10000,
             displacement(angle_means)
@@ -138,8 +142,7 @@ class analyse():
 
         if count == 0:
             return None
-        return tot_angle/count
-
+        return tot_angle / count
 
     def elbow_angle_displacement(self, points: dict):
         mean_angle = self.mean_angle(points)
