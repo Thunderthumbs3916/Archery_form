@@ -21,29 +21,78 @@ def angle(p1: dict, p2: dict, p3: dict):
 
     return math.degrees(math.acos(temp))
 
+def displacement(list):
+    if len(list) != 0:
+        if len(list[0]) == 2:
+            meanx = sum(p["x"] for p in list) / len(list)
+            meany = sum(p["y"] for p in list) / len(list)
+            tot = sum(distance(meanx, meany, p["x"], p["y"]) for p in list)
+        else:
+            mean_val = sum(list) / len(list)
+            tot = sum(abs(v-mean_val) for v in list)
 
+        return tot/len(list)
+            
 class analyse():
     def __init__(self):
         pass
 
+    def format_analysis(self, title, wrist_disp, nose_disp, angle_disp):
+        return (f"\n ----- {title} -----\n"
+                f"Mean displacement of draw/right wrist: {wrist_disp}\n"
+                f"Mean displacment of nose: {nose_disp}\n"
+                f"Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
+
+
     def anchor_analysis(self, data):
 
-        mystr = ("\n -------------New shot--------- \n "
-               f"Mean displacement of draw/right wrist: {self.mean_displacement(data, 'draw_wrist') * 1000} \n"
-               f"Mean displacement of nose: {self.mean_displacement(data, 'nose') * 10000} \n"
-               f"Mean displacement of angle made by draw wrist, shoulder and elbow: {self.elbow_angle_displacement(data)}")
+        mystr = self.format_analysis("New Shot", self.mean_displacement(data, "draw_wrist")*1000,
+                                     self.mean_displacement(data, "nose")*10000,
+                                     self.elbow_angle_displacement(data))
         print(mystr)
+        return mystr
+
+    def save_analysis(self, shot_key, shot_str, combined_str):
+
         try:
             with open("data/samples.json", "r") as f:
                 curr_samples = json.load(f)
         except FileNotFoundError:
             curr_samples = {}
-        shot_num = len(curr_samples)
 
-        curr_samples[shot_num] = mystr
+        curr_samples[shot_key] = {shot_key: shot_str, "combined": combined_str}
 
         with open('data/samples.json', "w") as f:
             json.dump(curr_samples, f, indent=2)
+
+    def cross_shot_analysis(self, all_shots):
+        wrist_means = []
+        nose_means = []
+        angle_means = []
+
+        for shot in all_shots.values():
+            data = shot["Anchor"]
+
+            wristx, wristy = self.mean_position(data, "draw_wrist")
+            if wristx is not None and wristy is not None:
+                wrist_means.append({"x": wristx, "y": wristy})
+
+            nosex, nosey = self.mean_position(data, "nose")
+            if nosex is not None and nosey is not None:
+                nose_means.append({"x": nosex, "y": nosey})
+
+            mean_angle = self.mean_angle(data)
+            if mean_angle is not None:
+                angle_means.append(mean_angle)
+
+        mystr = self.format_analysis(
+            "All shots combined",
+            self.displacement(wrist_means) * 1000,
+            self.displacement(nose_means) * 10000,
+            self.displacement(angle_means)
+        )
+        print(mystr)
+        return mystr
 
     def mean_position(self, points: dict, part):
         totx = 0
