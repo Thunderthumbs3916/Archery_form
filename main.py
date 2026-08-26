@@ -129,7 +129,7 @@ while True:
             if prev_anchor:
                 shot_num += 1
                 all_shots[f"Shot{shot_num}"] = {"Anchor": data_dict}
-                analyse.anchor_analysis(data_dict)
+                shot_str, combined_str = analyse.anchor_analysis(data_dict, all_shots, shot_num)
                 data_dict = {
                     "draw_wrist": [],
                     "bow_wrist": [],
