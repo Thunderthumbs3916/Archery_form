@@ -56,6 +56,8 @@ class analyse():
                 totx = totx + frame["x"]
                 toty = toty + frame["y"]
 
+        if count == 0:
+            return None, None
         return (totx / count), (toty / count)
 
     def mean_displacement(self, points: dict, part):
@@ -72,30 +74,40 @@ class analyse():
             return -1
         return tot_dist / count
 
-    def elbow_angle_displacement(self, points: dict):
+    def mean_angle(self, points: dict):
         tot_angle = 0.0
         count = 0
-        angles = []
-        mean_angle = 0.0
-        tot_displacement = 0
         for frame_num in range(len(points["draw_wrist"])):
             if (points["draw_wrist"][frame_num]["x"] >= 0 and points["draw_wrist"][frame_num]["y"] >= 0 and
                     points["draw_shoulder"][frame_num]["x"] >= 0 and points["draw_shoulder"][frame_num]["y"] >= 0 and
                     points["draw_elbow"][frame_num]["x"] >= 0 and points["draw_elbow"][frame_num]["y"] >= 0):
                 curr_angle = angle(points["draw_wrist"][frame_num], (points["draw_shoulder"][frame_num]),
                                    (points["draw_elbow"][frame_num]))
-                angles.append(curr_angle)
                 tot_angle += curr_angle
                 count += 1
 
-        mean_angle = tot_angle / count
-
-        for value in angles:
-            tot_displacement += abs(value - mean_angle)
-        avg_displacement = tot_displacement / count
-
         if count == 0:
+            return None
+        return tot_angle/count
+
+
+    def elbow_angle_displacement(self, points: dict):
+        mean_angle = self.mean_angle(points)
+        if mean_angle is None:
             return -1
-        return avg_displacement
+
+        tot_displacement = 0
+        count = 0
+
+        for frame_num in range(len(points["draw_wrist"])):
+            if (points["draw_wrist"][frame_num]["x"] >= 0 and points["draw_wrist"][frame_num]["y"] >= 0 and
+                    points["draw_shoulder"][frame_num]["x"] >= 0 and points["draw_shoulder"][frame_num]["y"] >= 0 and
+                    points["draw_elbow"][frame_num]["x"] >= 0 and points["draw_elbow"][frame_num]["y"] >= 0):
+                curr_angle = angle(points["draw_wrist"][frame_num], (points["draw_shoulder"][frame_num]),
+                                   (points["draw_elbow"][frame_num]))
+                tot_displacement += abs(curr_angle - mean_angle)
+                count += 1
+
+        return tot_displacement / count
 
     # def consistency_score(self,wrist_disp,elbow_disp,nose_disp):
