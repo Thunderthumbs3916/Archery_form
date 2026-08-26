@@ -46,9 +46,16 @@ class analyse():
                 f"Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
 
     def anchor_analysis(self, data, all_shots, shot_num):
+        wrist_disp = self.mean_displacement(data, "draw_wrist")
+        if wrist_disp != -1:
+            wrist_disp *= 1000
 
-        anchor_str = self.format_analysis("New Shot", self.mean_displacement(data, "draw_wrist") * 1000,
-                                          self.mean_displacement(data, "nose") * 10000,
+        nose_disp = self.mean_displacement(data, "nose")
+        if nose_disp != -1:
+            nose_disp *= 10000
+
+        anchor_str = self.format_analysis("New Shot", wrist_disp,
+                                          nose_disp,
                                           self.elbow_angle_displacement(data))
         combined_str = self.cross_shot_analysis(all_shots)
         self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str)
@@ -76,20 +83,17 @@ class analyse():
         for shot in all_shots.values():
             data = shot["Anchor"]
 
-            wristx, wristy = self.mean_position(data, "draw_wrist")
-            if wristx is not None and wristy is not None:
-                if wristx > 0 and wristy > 0:
-                    wrist_means.append({"x": wristx, "y": wristy})
+            wrist_disp = self.mean_displacement(data, "draw_wrist")
+            if wrist_disp != -1:
+                wrist_means.append(wrist_disp)
 
-            nosex, nosey = self.mean_position(data, "nose")
-            if nosex is not None and nosey is not None:
-                if nosex > 0 and nosey > 0:
-                    nose_means.append({"x": nosex, "y": nosey})
+            nose_disp = self.mean_displacement(data, "nose")
+            if nose_disp != -1:
+                nose_means.append(nose_disp)
 
             mean_angle = self.mean_angle(data)
             if mean_angle is not None:
-                if mean_angle > 0
-                    angle_means.append(mean_angle)
+                angle_means.append(mean_angle)
 
         mystr = self.format_analysis(
             "All shots combined",
