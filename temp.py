@@ -43,5 +43,5 @@ running_shots = {}
 
 for shot_name, shot_data in all_shots.items():
     running_shots[shot_name] = shot_data
-    shot_str, combined_str, score = analyse.anchor_analysis(shot_data["Anchor"], running_shots, shot_num)
+    shot_str, combined_str, score, quality, consistency = analyse.anchor_analysis(shot_data["Anchor"], running_shots, shot_num)
     shot_num += 1

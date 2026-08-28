@@ -44,7 +44,7 @@ def threshold_score(value, breakpoints):
         if value <= v1:
             frac = (value-v0) / (v1-v0)
             return s0 + frac*(s1-s0)
-    return breakpoints[-1, 1]
+    return breakpoints[-1][1]
 
 WRIST_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (16, 70), (30, 40), (32, 20)]
 NOSE_QUALITY_BREAKPOINTS = [(0, 100), (25, 90), (40, 70), (60, 40)]
@@ -82,7 +82,7 @@ class analyse():
                                           angle_disp, 1)
 
         combined_str, stats = self.cross_shot_analysis(all_shots)
-        score = self.shot_score(wrist_disp, nose_disp, angle_disp, stats)
+        score, quality, consistency = self.shot_score(wrist_disp, nose_disp, angle_disp, stats)
         score_str = f"\n Consistency score: {score}"
 
         wrist_conf = self.mean_visibility(data, "draw_wrist")
@@ -92,7 +92,9 @@ class analyse():
         self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str, score)
         print(anchor_str + "\n" + combined_str + score_str)
         print(conf_str)
-        return anchor_str, combined_str, score
+        print(f"{score} is your consistency score, {quality} is score based on thresholds, "
+              f"{consistency} is score based on deviation from mean")
+        return anchor_str, combined_str, score, quality, consistency
 
     def save_analysis(self, shot_key, shot_str, combined_str, score):
 
@@ -180,9 +182,10 @@ class analyse():
             else:
                 deviation = abs(value - mean_val) / spread
                 scores.append(100 / (1+deviation))
-            if len(scores) == 0:
-                return None
-            return sum(scores)/len(scores)
+
+        if len(scores) == 0:
+            return None
+        return sum(scores)/len(scores)
 
     def shot_score(self, wrist_disp, nose_disp, angle_disp, stats):
         quality = self.quality_score(wrist_disp, nose_disp, angle_disp)
@@ -194,7 +197,7 @@ class analyse():
             return consistency
         if consistency is None:
             return quality
-        return (quality + consistency)/2
+        return (quality + consistency)/2 , quality, consistency
 
     def mean_visibility(self, points: dict, part):
         total = 0
