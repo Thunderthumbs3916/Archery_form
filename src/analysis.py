@@ -39,11 +39,17 @@ class analyse():
     def __init__(self):
         pass
 
-    def format_analysis(self, title, wrist_disp, nose_disp, angle_disp):
-        return (f"\n ----- {title} -----\n"
-                f"Mean displacement of draw/right wrist: {wrist_disp}\n"
-                f"Mean displacment of nose: {nose_disp}\n"
-                f"Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
+    def format_analysis(self, title, wrist_disp, nose_disp, angle_disp, mode: int):
+        if mode == 1:
+            return (f"\n ----- {title} -----\n"
+                    f"Mean displacement of draw/right wrist: {wrist_disp}\n"
+                    f"Mean displacment of nose: {nose_disp}\n"
+                    f"Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
+        elif mode == 2:
+            return (f"\n ----- {title} -----\n"
+                    f"Mean displacement of the Mean displacement of draw/right wrist: {wrist_disp}\n"
+                    f"Mean displacement of the Mean displacment of nose: {nose_disp}\n"
+                    f"mean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
 
     def anchor_analysis(self, data, all_shots, shot_num):
         wrist_disp = self.mean_displacement(data, "draw_wrist")
@@ -56,7 +62,7 @@ class analyse():
 
         anchor_str = self.format_analysis("New Shot", wrist_disp,
                                           nose_disp,
-                                          self.elbow_angle_displacement(data))
+                                          self.elbow_angle_displacement(data), 1)
         combined_str = self.cross_shot_analysis(all_shots)
         self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str)
         print(anchor_str + "\n" + combined_str)
@@ -99,7 +105,8 @@ class analyse():
             "All shots combined",
             displacement(wrist_means) * 1000,
             displacement(nose_means) * 10000,
-            displacement(angle_means)
+            displacement(angle_means),
+            2
         )
         return mystr
 
