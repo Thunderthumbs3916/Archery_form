@@ -99,7 +99,8 @@ def save_data_locally(frame_num, landmarks):
     temp_list = ["draw_wrist", "bow_wrist", "draw_elbow", "bow_elbow", "draw_shoulder", "bow_shoulder", "nose"]
     for part in temp_list:
         data_dict[part].append(
-            {"t": frame_num, "x": pose.get_coor(part, landmarks).x, "y": pose.get_coor(part, landmarks).y})
+            {"t": frame_num, "x": pose.get_coor(part, landmarks).x, "y": pose.get_coor(part, landmarks).y,
+             "visibility": pose.get_coor(part, landmarks).visibility})
 
 
 while True:
@@ -129,7 +130,7 @@ while True:
             if prev_anchor:
                 shot_num += 1
                 all_shots[f"Shot{shot_num}"] = {"Anchor": data_dict}
-                shot_str, combined_str = analyse.anchor_analysis(data_dict, all_shots, shot_num)
+                shot_str, combined_str, score = analyse.anchor_analysis(data_dict, all_shots, shot_num)
                 data_dict = {
                     "draw_wrist": [],
                     "bow_wrist": [],

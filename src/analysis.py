@@ -92,7 +92,7 @@ class analyse():
         self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str, score)
         print(anchor_str + "\n" + combined_str + score_str)
         print(conf_str)
-        return anchor_str, combined_str
+        return anchor_str, combined_str, score
 
     def save_analysis(self, shot_key, shot_str, combined_str, score):
 
@@ -129,6 +129,21 @@ class analyse():
 
         wrist_avg, wrist_spread = self.mean_and_spread(wrist_means)
         nose_avg, nose_spread = self.mean_and_spread(nose_means)
+        angle_avg, angle_spread = self.mean_and_spread(angle_means)
+
+        if wrist_avg is not None:
+            wrist_avg *= 1000
+            wrist_spread *= 1000
+        if nose_avg is not None:
+            nose_avg *= 10000
+            nose_spread *= 10000
+
+        mystr = self.format_analysis("All shots combined", wrist_spread, nose_spread, angle_spread, 2)
+
+        stats = {"wrist": (wrist_avg, wrist_spread),
+                 "nose": (nose_avg, nose_spread),
+                 "angle": (angle_avg, angle_spread)}
+        return mystr, stats
 
 
     def mean_and_spread(self, values):
@@ -165,9 +180,32 @@ class analyse():
             else:
                 deviation = abs(value - mean_val) / spread
                 scores.append(100 / (1+deviation))
-            if len(scores) ==0:
+            if len(scores) == 0:
                 return None
             return sum(scores)/len(scores)
+
+    def shot_score(self, wrist_disp, nose_disp, angle_disp, stats):
+        quality = self.quality_score(wrist_disp, nose_disp, angle_disp)
+        consistency = self.consistency_score(wrist_disp, nose_disp, angle_disp, stats)
+
+        if quality is None and consistency is None:
+            return None
+        if quality is None:
+            return consistency
+        if consistency is None:
+            return quality
+        return (quality + consistency)/2
+
+    def mean_visibility(self, points: dict, part):
+        total = 0
+        count = 0
+        for frame in points[part]:
+            if "visibility" in frame:
+                total += frame["visibility"]
+                count += 1
+        if count==0:
+            return None
+        return total/count
 
     def mean_position(self, points: dict, part):
         totx = 0
@@ -232,5 +270,3 @@ class analyse():
                 count += 1
 
         return tot_displacement / count
-
-    # def consistency_score(self,wrist_disp,elbow_disp,nose_disp):
