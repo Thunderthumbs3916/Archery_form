@@ -75,15 +75,26 @@ class analyse():
         if nose_disp != -1:
             nose_disp *= 10000
 
+        angle_disp = self.elbow_angle_displacement(data)
+
         anchor_str = self.format_analysis("New Shot", wrist_disp,
                                           nose_disp,
-                                          self.elbow_angle_displacement(data), 1)
-        combined_str = self.cross_shot_analysis(all_shots)
-        self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str)
-        print(anchor_str + "\n" + combined_str)
+                                          angle_disp, 1)
+
+        combined_str, stats = self.cross_shot_analysis(all_shots)
+        score = self.shot_score(wrist_disp, nose_disp, angle_disp, stats)
+        score_str = f"\n Consistency score: {score}"
+
+        wrist_conf = self.mean_visibility(data, "draw_wrist")
+        nose_conf = self.mean_visibility(data, "nose")
+        conf_str = f"[debug] wrist confidence: {wrist_conf}, nose confidence: {nose_conf}"
+
+        self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str, score)
+        print(anchor_str + "\n" + combined_str + score_str)
+        print(conf_str)
         return anchor_str, combined_str
 
-    def save_analysis(self, shot_key, shot_str, combined_str):
+    def save_analysis(self, shot_key, shot_str, combined_str, score):
 
         try:
             with open("data/samples.json", "r") as f:
@@ -91,7 +102,7 @@ class analyse():
         except FileNotFoundError:
             curr_samples = {}
 
-        curr_samples[shot_key] = {"small_str": shot_str, "combined": combined_str}
+        curr_samples[shot_key] = {"small_str": shot_str, "combined": combined_str, "score": score}
 
         with open('data/samples.json', "w") as f:
             json.dump(curr_samples, f, indent=2)
@@ -116,14 +127,47 @@ class analyse():
             if mean_angle is not None:
                 angle_means.append(mean_angle)
 
-        mystr = self.format_analysis(
-            "All shots combined",
-            displacement(wrist_means) * 1000,
-            displacement(nose_means) * 10000,
-            displacement(angle_means),
-            2
-        )
-        return mystr
+        wrist_avg, wrist_spread = self.mean_and_spread(wrist_means)
+        nose_avg, nose_spread = self.mean_and_spread(nose_means)
+
+
+    def mean_and_spread(self, values):
+        if len(values)==0:
+            return None, None
+        mean_val = sum(values)/len(values)
+        tot = sum(abs(v-mean_val) for v in values)
+        return mean_val, tot/len(values)
+
+    def quality_score(self, wrist_disp, nose_disp, angle_disp):
+        scores = []
+        if wrist_disp != -1:
+            scores.append(threshold_score(wrist_disp, WRIST_QUALITY_BREAKPOINTS))
+        if nose_disp != -1:
+            scores.append(threshold_score(nose_disp, NOSE_QUALITY_BREAKPOINTS))
+        if angle_disp != -1:
+            scores.append(threshold_score(angle_disp, ANGLE_QUALITY_BREAKPOINTS))
+
+        if len(scores) == 0:
+            return None
+        return sum(scores)/len(scores)
+
+    def consistency_score(self, wrist_disp, nose_disp, angle_disp, stats):
+        scores = []
+
+        for value, key in ((wrist_disp, "wrist"), (nose_disp, "nose"), (angle_disp, "angle")):
+            if value == -1:
+                continue
+            mean_val, spread = stats[key]
+            if mean_val is None:
+                continue
+            if spread == 0:
+                scores.append(100)
+            else:
+                deviation = abs(value - mean_val) / spread
+                scores.append(100 / (1+deviation))
+            if len(scores) ==0:
+                return None
+            return sum(scores)/len(scores)
 
     def mean_position(self, points: dict, part):
         totx = 0
