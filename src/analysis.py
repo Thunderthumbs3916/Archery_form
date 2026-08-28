@@ -34,6 +34,21 @@ def displacement(list):
 
         return tot / len(list)
 
+def threshold_score(value, breakpoints):
+    if value <= breakpoints[0][0]:
+        return breakpoints[0][1]
+
+    for i in range(1, len(breakpoints)):
+        v0, s0 = breakpoints[i-1]
+        v1, s1 = breakpoints[i]
+        if value <= v1:
+            frac = (value-v0) / (v1-v0)
+            return s0 + frac*(s1-s0)
+    return breakpoints[-1, 1]
+
+WRIST_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (16, 70), (30, 40), (32, 20)]
+NOSE_QUALITY_BREAKPOINTS = [(0, 100), (25, 90), (40, 70), (60, 40)]
+ANGLE_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (15, 65)]
 
 class analyse():
     def __init__(self):
