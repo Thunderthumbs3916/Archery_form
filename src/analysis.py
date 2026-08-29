@@ -48,7 +48,7 @@ def threshold_score(value, breakpoints):
 
 WRIST_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (16, 70), (30, 40), (32, 20)]
 NOSE_QUALITY_BREAKPOINTS = [(0, 100), (25, 90), (40, 70), (60, 40)]
-ANGLE_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (15, 65)]
+ANGLE_QUALITY_BREAKPOINTS = [(0, 100), (8, 90), (10, 80), (20, 50)]
 
 class analyse():
     def __init__(self):
@@ -89,14 +89,14 @@ class analyse():
         nose_conf = self.mean_visibility(data, "nose")
         conf_str = f"[debug] wrist confidence: {wrist_conf}, nose confidence: {nose_conf}"
 
-        self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str, score)
+        self.save_analysis(f"Shot{shot_num}", anchor_str, combined_str, score, quality, consistency)
         print(anchor_str + "\n" + combined_str + score_str)
         print(conf_str)
         print(f"{score} is your consistency score, {quality} is score based on thresholds, "
               f"{consistency} is score based on deviation from mean")
         return anchor_str, combined_str, score, quality, consistency
 
-    def save_analysis(self, shot_key, shot_str, combined_str, score):
+    def save_analysis(self, shot_key, shot_str, combined_str, score, quality, consistency):
 
         try:
             with open("data/samples.json", "r") as f:
@@ -104,7 +104,7 @@ class analyse():
         except FileNotFoundError:
             curr_samples = {}
 
-        curr_samples[shot_key] = {"small_str": shot_str, "combined": combined_str, "score": score}
+        curr_samples[shot_key] = {"small_str": shot_str, "combined": combined_str, "score": score, "quality": quality, "consistency": consistency}
 
         with open('data/samples.json', "w") as f:
             json.dump(curr_samples, f, indent=2)
