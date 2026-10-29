@@ -1,12 +1,12 @@
-#import mediapipe as mp
-#import sys
+import mediapipe as mp
+import sys
 
 #print(mp.__file__)
-#print(mp.__version__)
+print(mp.__version__)
 #print(hasattr(mp, "solutions"))
 #print(dir(mp))
 
-#print(sys.version)
+print(sys.version)
 
 # import cv2
 #
@@ -27,21 +27,21 @@
 # cap.release()
 # cv2.destroyAllWindows()
 
-import json
-import src.analysis
-
-analyse = src.analysis.analyse()
-shot_num = 0
-
-with open("data/data.json", "r") as f:
-    all_shots = json.load(f)
-
-with open("data/samples.json", "w") as f:
-    json.dump({}, f)
-
-running_shots = {}
-
-for shot_name, shot_data in all_shots.items():
-    running_shots[shot_name] = shot_data
-    shot_str, combined_str, score, quality, consistency = analyse.anchor_analysis(shot_data["Anchor"], running_shots, shot_num)
-    shot_num += 1
+# import json
+# import src.analysis
+#
+# analyse = src.analysis.analyse()
+# shot_num = 0
+#
+# with open("data/data.json", "r") as f:
+#     all_shots = json.load(f)
+#
+# with open("data/samples.json", "w") as f:
+#     json.dump({}, f)
+#
+# running_shots = {}
+#
+# for shot_name, shot_data in all_shots.items():
+#     running_shots[shot_name] = shot_data
+#     shot_str, combined_str, score, quality, consistency = analyse.anchor_analysis(shot_data["Anchor"], running_shots, shot_num)
+#     shot_num += 1
