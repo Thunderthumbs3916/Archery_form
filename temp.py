@@ -1,12 +1,12 @@
-import mediapipe as mp
-import sys
-
-#print(mp.__file__)
-print(mp.__version__)
-#print(hasattr(mp, "solutions"))
-#print(dir(mp))
-
-print(sys.version)
+# import mediapipe as mp
+# import sys
+#
+# #print(mp.__file__)
+# print(mp.__version__)
+# #print(hasattr(mp, "solutions"))
+# #print(dir(mp))
+#
+# print(sys.version)
 
 # import cv2
 #
@@ -45,3 +45,21 @@ print(sys.version)
 #     running_shots[shot_name] = shot_data
 #     shot_str, combined_str, score, quality, consistency = analyse.anchor_analysis(shot_data["Anchor"], running_shots, shot_num)
 #     shot_num += 1
+
+
+import json, re, csv
+
+PATH = "data/samples2.json"  # path to your BACKUP copy
+num = r"-?\d+(?:\.\d+)?(?:e[-+]?\d+)?"
+shots = json.load(open(PATH))
+rows = []
+for key, s in shots.items():
+    wrist, nose, elbow = [float(x) for x in re.findall(num, s["small_str"])]
+    rows.append([int(key.replace("Shot", "")), wrist, nose, elbow,
+                 s["quality"], s["consistency"], s["score"]])
+rows.sort(key=lambda r: r[0])
+with open("scores_v0.csv", "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["shot_no", "wrist", "nose", "elbow", "threshold", "consistency", "final"])
+    w.writerows(rows)
+print(len(rows), "shots written")  # expect 37
