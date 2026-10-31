@@ -1,261 +1,65 @@
 {
-  "Shot1": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 39.655327909911676\nMean displacment of nose: 107.6894316580147\nMean displacement of angle made by draw wrist, shoulder and elbow: 13.673746304705073",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 0.0\nMean displacement of the Mean displacment of nose: 0.0\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 0.0",
-    "score": 71.4964601809808,
-    "quality": 42.9929203619616,
-    "consistency": 100.0
+  "Shot38": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 25.832929170445823\nMean displacment of nose: 199.9866814500472\nMean displacement of angle made by draw wrist, shoulder and elbow: 9.740674371892954",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 7.6087488759604485\nMean displacement of the Mean displacment of nose: 43.78792558336667\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.8222119578665485",
+    "score": 40.34521781930327,
+    "quality": 56.74202187747901,
+    "consistency": 23.948413761127537
   },
-  "Shot2": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 47.20691636679997\nMean displacment of nose: 244.79176653384746\nMean displacement of angle made by draw wrist, shoulder and elbow: 13.762312268104441",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 3.775794228444148\nMean displacement of the Mean displacment of nose: 68.55116743791639\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.637904936199369",
-    "score": 38.97147913961162,
-    "quality": 42.904354398562226,
-    "consistency": 35.038603880661015
+  "Shot39": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 48.63298724253062\nMean displacment of nose: 211.88384930997913\nMean displacement of angle made by draw wrist, shoulder and elbow: 14.8683958125259",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 7.6942766600751344\nMean displacement of the Mean displacment of nose: 46.625059739951105\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.086001108458829",
+    "score": 34.80447014963618,
+    "quality": 41.79827085414077,
+    "consistency": 27.81066944513159
   },
-  "Shot3": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 49.562834328639944\nMean displacment of nose: 214.68549054150262\nMean displacement of angle made by draw wrist, shoulder and elbow: 17.076413848061414",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 3.879798861248123\nMean displacement of the Mean displacment of nose: 54.244087502071274\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.175657052490043",
-    "score": 40.045873639341664,
-    "quality": 39.59025281860525,
-    "consistency": 40.50149446007808
-  },
-  "Shot4": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 36.67396968570474\nMean displacment of nose: 72.65306243554564\nMean displacement of angle made by draw wrist, shoulder and elbow: 12.514544198056113",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.110113274955873\nMean displacement of the Mean displacment of nose: 69.78369074544743\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.6563601989783585",
-    "score": 37.443179380256026,
-    "quality": 44.15212246861055,
-    "consistency": 30.734236291901507
-  },
-  "Shot5": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 47.11185368291056\nMean displacment of nose: 100.82753229925082\nMean displacement of angle made by draw wrist, shoulder and elbow: 12.553089663118602",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 4.702025277588134\nMean displacement of the Mean displacment of nose: 65.28733747523422\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.4279331734615397",
-    "score": 42.463738612374534,
-    "quality": 44.113577003548066,
-    "consistency": 40.813900221201
-  },
-  "Shot6": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 33.53769011014772\nMean displacment of nose: 202.66060111250272\nMean displacement of angle made by draw wrist, shoulder and elbow: 5.458955869894162",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.669102778764389\nMean displacement of the Mean displacment of nose: 63.494638632506955\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.617793527889719",
-    "score": 42.44516636188393,
-    "quality": 51.0587683875441,
-    "consistency": 33.83156433622376
-  },
-  "Shot7": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 28.799220331232107\nMean displacment of nose: 80.82008225835911\nMean displacement of angle made by draw wrist, shoulder and elbow: 7.0624359598892985",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.5113385062209455\nMean displacement of the Mean displacment of nose: 63.77882068562858\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.5288078904215165",
-    "score": 44.017564456429575,
-    "quality": 57.915018113451765,
-    "consistency": 30.120110799407385
-  },
-  "Shot8": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 35.948107014137\nMean displacment of nose: 280.94710012800294\nMean displacement of angle made by draw wrist, shoulder and elbow: 3.76230821912933",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.111408648073519\nMean displacement of the Mean displacment of nose: 72.63685620808566\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.552356631826035",
-    "score": 43.26319094385425,
-    "quality": 51.765704908696115,
-    "consistency": 34.76067697901238
-  },
-  "Shot9": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 25.305217899617958\nMean displacment of nose: 73.42036570125798\nMean displacement of angle made by draw wrist, shoulder and elbow: 2.1194021151077025",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.830317068591423\nMean displacement of the Mean displacment of nose: 73.42673812764359\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.6313426670014275",
-    "score": 45.81352989934258,
-    "quality": 62.47033157135896,
-    "consistency": 29.156728227326198
-  },
-  "Shot10": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 37.227312829426566\nMean displacment of nose: 269.1246999036562\nMean displacement of angle made by draw wrist, shoulder and elbow: 5.44445182174556",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.225110444970171\nMean displacement of the Mean displacment of nose: 77.67991838670837\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.718222923597556",
-    "score": 48.124972437517215,
-    "quality": 51.06481174093935,
-    "consistency": 45.18513313409509
-  },
-  "Shot11": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 39.18284975027785\nMean displacment of nose: 80.62116895964773\nMean displacement of angle made by draw wrist, shoulder and elbow: 2.8642672119168977",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.76629922115553\nMean displacement of the Mean displacment of nose: 77.5718964092015\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.647522193110924",
-    "score": 49.54064079689235,
-    "quality": 52.13988866170129,
-    "consistency": 46.941392932083396
-  },
-  "Shot12": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 37.85139102601751\nMean displacment of nose: 66.84294828578007\nMean displacement of angle made by draw wrist, shoulder and elbow: 2.3753425730993127",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.310054580393918\nMean displacement of the Mean displacment of nose: 77.37631457704589\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.792381094777833",
-    "score": 50.80691727053866,
-    "quality": 52.343607261208625,
-    "consistency": 49.2702272798687
-  },
-  "Shot13": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 30.700941163418502\nMean displacment of nose: 83.16490096395981\nMean displacement of angle made by draw wrist, shoulder and elbow: 3.597184283521049",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.382762807689883\nMean displacement of the Mean displacment of nose: 75.35479056742031\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.581437864134272",
-    "score": 45.41484273638484,
-    "quality": 56.16470267047122,
-    "consistency": 34.664982802298454
-  },
-  "Shot14": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 46.493287880960224\nMean displacment of nose: 142.44396656817815\nMean displacement of angle made by draw wrist, shoulder and elbow: 8.466902305204735",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.688178153038662\nMean displacement of the Mean displacment of nose: 70.07622069720038\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.712343989463599",
-    "score": 48.53934324142847,
-    "quality": 49.221829491325444,
-    "consistency": 47.85685699153149
-  },
-  "Shot15": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 21.00474224052091\nMean displacment of nose: 62.342816129289865\nMean displacement of angle made by draw wrist, shoulder and elbow: 5.208275650266344",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.349184967701143\nMean displacement of the Mean displacment of nose: 69.52523351948957\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.550129450968585",
-    "score": 45.62020520229132,
-    "quality": 64.25506925963599,
-    "consistency": 26.98534114494665
-  },
-  "Shot16": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 34.40733305576605\nMean displacment of nose: 74.55768536721234\nMean displacement of angle made by draw wrist, shoulder and elbow: 5.471492590875243",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.119659517149958\nMean displacement of the Mean displacment of nose: 68.19450221505463\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.417977348766038",
-    "score": 47.010911261541224,
-    "quality": 51.05354475380199,
-    "consistency": 42.96827776928047
-  },
-  "Shot17": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 24.08722686337428\nMean displacment of nose: 50.314415004615874\nMean displacement of angle made by draw wrist, shoulder and elbow: 3.0965719064991415",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.5301843569637485\nMean displacement of the Mean displacment of nose: 67.69317244489267\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.282444041731561",
-    "score": 48.1746723153779,
-    "quality": 67.7759635866215,
-    "consistency": 28.573381044134294
-  },
-  "Shot18": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 35.63049811021702\nMean displacment of nose: 91.5579122772318\nMean displacement of angle made by draw wrist, shoulder and elbow: 4.569216180150676",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.196931481789862\nMean displacement of the Mean displacment of nose: 65.35166400871165\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.229031052835442",
-    "score": 52.63890539885962,
-    "quality": 51.429493258270554,
-    "consistency": 53.848317539448686
-  },
-  "Shot19": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 35.66193849441734\nMean displacment of nose: 91.357295591467\nMean displacement of angle made by draw wrist, shoulder and elbow: 2.443940907415159",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.894244859062885\nMean displacement of the Mean displacment of nose: 63.12176964349127\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.108047465490911",
-    "score": 53.173560014043964,
-    "quality": 52.31502462191035,
-    "consistency": 54.03209540617758
-  },
-  "Shot20": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 40.74572833917695\nMean displacment of nose: 87.79467641915872\nMean displacement of angle made by draw wrist, shoulder and elbow: 4.92725463948223",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.8314278258488565\nMean displacement of the Mean displacment of nose: 61.106824934614565\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.917398007050141",
-    "score": 46.336031915089926,
-    "quality": 51.280310566882406,
-    "consistency": 41.391753263297446
-  },
-  "Shot21": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 45.581689582423536\nMean displacment of nose: 62.99247289710397\nMean displacement of angle made by draw wrist, shoulder and elbow: 2.427406567682069",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.982958090596173\nMean displacement of the Mean displacment of nose: 59.85516450942395\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.8814403623966585",
-    "score": 42.07165832955493,
-    "quality": 52.321913930132474,
-    "consistency": 31.821402728977386
-  },
-  "Shot22": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 40.069237243025604\nMean displacment of nose: 77.97421935608821\nMean displacement of angle made by draw wrist, shoulder and elbow: 7.599494959103551",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.860524725955308\nMean displacement of the Mean displacment of nose: 58.201950756112154\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.7202519031753796",
-    "score": 46.42133984147448,
-    "quality": 50.16687710037352,
-    "consistency": 42.675802582575436
-  },
-  "Shot23": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 46.70656032488112\nMean displacment of nose: 110.62123277230558\nMean displacement of angle made by draw wrist, shoulder and elbow: 6.873190641665402",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 6.023387302240141\nMean displacement of the Mean displacment of nose: 55.86313161108883\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.6986445943482584",
-    "score": 47.032157388733935,
-    "quality": 50.46950389930608,
-    "consistency": 43.59481087816179
-  },
-  "Shot24": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 35.11420714515785\nMean displacment of nose: 49.686966024259796\nMean displacement of angle made by draw wrist, shoulder and elbow: 4.799029910272361",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.857976872502799\nMean displacement of the Mean displacment of nose: 54.97336854088586\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.5887761416383834",
-    "score": 48.67855039929303,
-    "quality": 56.490254525256624,
-    "consistency": 40.866846273329436
-  },
-  "Shot25": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 32.97351189654419\nMean displacment of nose: 59.95528098661255\nMean displacement of angle made by draw wrist, shoulder and elbow: 4.005001581585546",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.785598759407366\nMean displacement of the Mean displacment of nose: 53.84720665165806\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.4679294185018223",
-    "score": 44.57557434470415,
-    "quality": 51.68694218103308,
-    "consistency": 37.46420650837521
-  },
-  "Shot26": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 42.08347210506261\nMean displacment of nose: 68.44631513155979\nMean displacement of angle made by draw wrist, shoulder and elbow: 5.535009541088071",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.759328631612542\nMean displacement of the Mean displacment of nose: 52.57759707882093\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.35859509829653",
-    "score": 44.36719972512883,
-    "quality": 51.02707935787996,
-    "consistency": 37.707320092377685
-  },
-  "Shot27": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 35.532051723977524\nMean displacment of nose: 77.41099154089409\nMean displacement of angle made by draw wrist, shoulder and elbow: 7.788167386921757",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.6043948823818015\nMean displacement of the Mean displacment of nose: 51.20022874125856\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.40650444664652",
-    "score": 48.63272538328342,
-    "quality": 50.0882635887826,
-    "consistency": 47.17718717778424
-  },
-  "Shot28": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 42.7284138627617\nMean displacment of nose: 102.96085049331838\nMean displacement of angle made by draw wrist, shoulder and elbow: 8.89074913953926",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.614392461008066\nMean displacement of the Mean displacment of nose: 49.50773540891713\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.3342404343644847",
-    "score": 47.986737393905415,
-    "quality": 48.5154181007679,
-    "consistency": 47.45805668704293
-  },
-  "Shot29": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 47.290019713285226\nMean displacment of nose: 86.08451920348249\nMean displacement of angle made by draw wrist, shoulder and elbow: 9.700889987330306",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.773099100715293\nMean displacement of the Mean displacment of nose: 48.20384186309425\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.2710256370878144",
-    "score": 41.73795056824209,
-    "quality": 47.16518335444949,
-    "consistency": 36.31071778203469
-  },
-  "Shot30": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 37.995156424265616\nMean displacment of nose: 97.62284385746013\nMean displacement of angle made by draw wrist, shoulder and elbow: 5.796021209784865",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.588692332558012\nMean displacement of the Mean displacment of nose: 46.78140100886423\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.1934135952664824",
-    "score": 55.45260556501205,
-    "quality": 50.918324495922974,
-    "consistency": 59.98688663410113
-  },
-  "Shot31": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 39.05645044496146\nMean displacment of nose: 86.15272679589005\nMean displacement of angle made by draw wrist, shoulder and elbow: 2.5975638919161965",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.448812357464864\nMean displacement of the Mean displacment of nose: 45.60631888444885\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.198955335818804",
-    "score": 51.475247813842124,
-    "quality": 52.25101504503491,
-    "consistency": 50.699480582649336
-  },
-  "Shot32": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 37.208591762344035\nMean displacment of nose: 65.36209618460789\nMean displacement of angle made by draw wrist, shoulder and elbow: 3.6973718586829656",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.29714464560493\nMean displacement of the Mean displacment of nose: 44.81201130453089\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.1902825259839287",
-    "score": 50.15808500866778,
-    "quality": 51.79276172554876,
-    "consistency": 48.52340829178681
-  },
-  "Shot33": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 44.64032739054812\nMean displacment of nose: 64.08229505973024\nMean displacement of angle made by draw wrist, shoulder and elbow: 2.9120617220511003",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.346646298100689\nMean displacement of the Mean displacment of nose: 44.084583501671226\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.2699858133864583",
-    "score": 42.66562947873141,
-    "quality": 52.1199742824787,
-    "consistency": 33.21128467498412
-  },
-  "Shot34": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 41.48424529355097\nMean displacment of nose: 71.95762092031528\nMean displacement of angle made by draw wrist, shoulder and elbow: 1.633842606775476",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.297993307135992\nMean displacement of the Mean displacment of nose: 43.25494643341779\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.3603496371764567",
-    "score": 46.58821899033887,
-    "quality": 52.65256558051021,
-    "consistency": 40.52387240016753
-  },
-  "Shot35": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 33.167854694556354\nMean displacment of nose: 85.25848152802645\nMean displacement of angle made by draw wrist, shoulder and elbow: 4.114394719907574",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.277645663330867\nMean displacement of the Mean displacment of nose: 42.27307016409678\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.297192021581303",
-    "score": 46.68464232471752,
-    "quality": 51.619002200038516,
-    "consistency": 41.75028244939653
-  },
-  "Shot36": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 36.65646253060004\nMean displacment of nose: 82.73845521153306\nMean displacement of angle made by draw wrist, shoulder and elbow: 3.4771492103014245",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 5.1651118463169725\nMean displacement of the Mean displacment of nose: 41.36313599233799\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.332903312903665",
-    "score": 51.04187855945291,
-    "quality": 51.884521162374405,
-    "consistency": 50.19923595653142
-  },
-  "Shot37": {
-    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 119.23168223272377\nMean displacment of nose: 125.7808950472039\nMean displacement of angle made by draw wrist, shoulder and elbow: 25.829645735018513",
-    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 7.53249667194205\nMean displacement of the Mean displacment of nose: 41.154442932758315\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 3.4734933158296575",
-    "score": 31.568518984374478,
+  "Shot40": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 54.897217922271544\nMean displacment of nose: 333.43576827085\nMean displacement of angle made by draw wrist, shoulder and elbow: 20.134531451879397",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 7.963409517390231\nMean displacement of the Mean displacment of nose: 53.799384941041666\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 4.2464879106531335",
+    "score": 28.467530391993535,
     "quality": 36.666666666666664,
-    "consistency": 26.470371302082288
+    "consistency": 20.2683941173204
+  },
+  "Shot41": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 42.07808066701334\nMean displacment of nose: 79.12463324687799\nMean displacement of angle made by draw wrist, shoulder and elbow: 17.2808306742123",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 7.820820239223619\nMean displacement of the Mean displacment of nose: 52.9137447224632\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 5.098833983764119",
+    "score": 44.49845994719248,
+    "quality": 39.38583599245437,
+    "consistency": 49.61108390193059
+  },
+  "Shot42": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 26.07002671238962\nMean displacment of nose: 29.445878560697096\nMean displacement of angle made by draw wrist, shoulder and elbow: 10.41893263561822",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 7.895506464448795\nMean displacement of the Mean displacment of nose: 52.613701215974054\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 5.64936104269567",
+    "score": 48.78621806338049,
+    "quality": 70.41224511426985,
+    "consistency": 27.160191012491122
+  },
+  "Shot43": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 33.43035970918801\nMean displacment of nose: 28.576763823135757\nMean displacement of angle made by draw wrist, shoulder and elbow: 13.145082944205596",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 7.83349393268384\nMean displacement of the Mean displacment of nose: 52.31564186751998\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 6.348827179572582",
+    "score": 46.17951108870198,
+    "quality": 58.59857757884517,
+    "consistency": 33.760444598558784
+  },
+  "Shot44": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 11.444495568304884\nMean displacment of nose: 23.303516988586274\nMean displacement of angle made by draw wrist, shoulder and elbow: 14.716334746583472",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 8.173747189952703\nMean displacement of the Mean displacment of nose: 52.11346515628703\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 7.021316317826261",
+    "score": 50.76943648740033,
+    "quality": 78.5468659427351,
+    "consistency": 22.992007032065555
+  },
+  "Shot45": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 17.58982268620855\nMean displacment of nose: 12.935074796165173\nMean displacement of angle made by draw wrist, shoulder and elbow: 15.830941193863882",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 8.40884778284772\nMean displacement of the Mean displacment of nose: 52.06275217499412\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 7.668025113529109",
+    "score": 49.52773223224852,
+    "quality": 74.64212786697465,
+    "consistency": 24.41333659752239
+  },
+  "Shot46": {
+    "small_str": "\n ----- New Shot -----\nMean displacement of draw/right wrist: 147.24237272681424\nMean displacment of nose: 294.0384754519421\nMean displacement of angle made by draw wrist, shoulder and elbow: 28.681787610903264",
+    "combined": "\n ----- All shots combined -----\nMean displacement of the Mean displacement of draw/right wrist: 11.089024951918699\nMean displacement of the Mean displacment of nose: 56.90092851566636\nmean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: 7.6330042578609545",
+    "score": 25.60205669851043,
+    "quality": 36.666666666666664,
+    "consistency": 14.5374467303542
   }
 }
