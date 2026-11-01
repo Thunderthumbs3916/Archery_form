@@ -125,13 +125,9 @@ class analyse():
             if nose_disp != -1:
                 nose_means.append(nose_disp)
 
-            # angle_disp = self.elbow_angle_displacement(data)
-            # if angle_disp != -1:
-            #     angle_means.append(angle_disp)
-
-            mean_angle = self.mean_angle(data)
-            if mean_angle is not None:
-                angle_means.append(mean_angle)
+            angle_disp = self.elbow_angle_displacement(data)
+            if angle_disp != -1:
+                angle_means.append(angle_disp)
 
         wrist_avg, wrist_spread = self.mean_and_spread(wrist_means)
         nose_avg, nose_spread = self.mean_and_spread(nose_means)
