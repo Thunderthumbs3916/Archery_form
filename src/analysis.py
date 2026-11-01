@@ -192,7 +192,7 @@ class analyse():
         consistency = self.consistency_score(wrist_disp, nose_disp, angle_disp, stats)
 
         if quality is None and consistency is None:
-            return None
+            return None, None, None
         if quality is None:
             return consistency
         if consistency is None:
