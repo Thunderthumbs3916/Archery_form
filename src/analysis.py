@@ -5,7 +5,7 @@ WRIST_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (16, 70), (30, 40), (32, 20)]
 NOSE_QUALITY_BREAKPOINTS = [(0, 100), (25, 90), (40, 70), (60, 40)]
 ANGLE_QUALITY_BREAKPOINTS = [(0, 100), (8, 90), (10, 80), (20, 50)]
 
-MIN_BASELINE = 0  # num shots used as calibration and not scored
+MIN_BASELINE = 1  # num shots not scored before consistency starts being outputted
 RECENCY_DECAY = 0.95  # how much weightage drops as shots get older, lower the number more it drops, at 1 there is no weightage to newer shots
 MAD_TO_SD = 1.4826
 SPREAD_FLOOR = 0.1  #spread can't be smaller than this fraction of typical value to avoid spread being too low and giving very high z values
@@ -31,7 +31,7 @@ def angle(p1: dict, p2: dict, p3: dict):
     return math.degrees(math.acos(temp))
 
 
-def displacement(list):
+def displacement(list): #unused
     if len(list) != 0:
         if type(list[0]) == type({"wofheof": "eofhiw"}):
             meanx = sum(p["x"] for p in list) / len(list)
@@ -69,7 +69,7 @@ def weighted_median(values, weights):
 def typical_and_spread(values):
     n = len(values)
     if n < MIN_BASELINE:
-        return None, None()
+        return None, None
     weights = [RECENCY_DECAY ** (n-i-1) for i in range(n)]
     typical = weighted_median(values, weights)
     mad = weighted_median([abs(v-typical) for v in values], weights)
@@ -89,9 +89,9 @@ class analyse():
                     f"Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
         elif mode == 2:
             return (f"\n ----- {title} -----\n"
-                    f"Mean displacement of the Mean displacement of draw/right wrist: {wrist_disp}\n"
-                    f"Mean displacement of the Mean displacment of nose: {nose_disp}\n"
-                    f"mean displacement of the Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
+                    f"Median of the Mean displacement of draw/right wrist: {wrist_disp}\n"
+                    f"Median of the Mean displacment of nose: {nose_disp}\n"
+                    f"Median of the Mean displacement of angle made by draw wrist, shoulder and elbow: {angle_disp}")
 
     def anchor_analysis(self, data, all_shots, shot_num):
         wrist_disp = self.mean_displacement(data, "draw_wrist")
@@ -120,7 +120,7 @@ class analyse():
         print(anchor_str + "\n" + combined_str + score_str)
         print(conf_str)
         print(f"{score} is your consistency score, {quality} is score based on thresholds, "
-              f"{consistency} is score based on deviation from mean")
+              f"{consistency} is score based on spread from typical(median)")
         return anchor_str, combined_str, score, quality, consistency
 
     def save_analysis(self, shot_key, shot_str, combined_str, score, quality, consistency):
@@ -157,22 +157,22 @@ class analyse():
             if angle_disp != -1:
                 angle_means.append(angle_disp)
 
-        wrist_avg, wrist_spread = typical_and_spread(wrist_means)
-        nose_avg, nose_spread = typical_and_spread(nose_means)
-        angle_avg, angle_spread = typical_and_spread(angle_means)
+        wrist_typical, wrist_spread = typical_and_spread(wrist_means)
+        nose_typical, nose_spread = typical_and_spread(nose_means)
+        angle_typical, angle_spread = typical_and_spread(angle_means)
 
-        if wrist_avg is not None:
-            wrist_avg *= 1000
+        if wrist_typical is not None:
+            wrist_typical *= 1000
             wrist_spread *= 1000
-        if nose_avg is not None:
-            nose_avg *= 10000
+        if nose_typical is not None:
+            nose_typical *= 10000
             nose_spread *= 10000
 
         mystr = self.format_analysis("All shots combined", wrist_spread, nose_spread, angle_spread, 2)
 
-        stats = {"wrist": (wrist_avg, wrist_spread),
-                 "nose": (nose_avg, nose_spread),
-                 "angle": (angle_avg, angle_spread)}
+        stats = {"wrist": (wrist_typical, wrist_spread),
+                 "nose": (nose_typical, nose_spread),
+                 "angle": (angle_typical, angle_spread)}
         return mystr, stats
 
     def mean_and_spread(self, values): # not used anymore
@@ -201,13 +201,13 @@ class analyse():
         for value, key in ((wrist_disp, "wrist"), (nose_disp, "nose"), (angle_disp, "angle")):
             if value == -1:
                 continue
-            mean_val, spread = stats[key]
-            if mean_val is None:
+            typical, spread = stats[key]
+            if typical is None:
                 continue
             if spread == 0:
                 scores.append(100)
             else:
-                deviation = max(0, value - mean_val) / spread
+                deviation = max(0, value - typical) / spread
                 scores.append(100 / (1 + deviation))
 
         if len(scores) == 0:
@@ -215,7 +215,7 @@ class analyse():
         product = 1
         for val in scores:
             product *= val
-        return product ** (1 / 3)
+        return product ** (1 / len(scores))
 
     def shot_score(self, wrist_disp, nose_disp, angle_disp, stats):
         quality = self.quality_score(wrist_disp, nose_disp, angle_disp)
