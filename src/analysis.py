@@ -5,6 +5,11 @@ WRIST_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (16, 70), (30, 40), (32, 20)]
 NOSE_QUALITY_BREAKPOINTS = [(0, 100), (25, 90), (40, 70), (60, 40)]
 ANGLE_QUALITY_BREAKPOINTS = [(0, 100), (8, 90), (10, 80), (20, 50)]
 
+MIN_BASELINE = 0  # num shots used as calibration and not scored
+RECENCY_DECAY = 0.95  # how much weightage drops as shots get older, lower the number more it drops, at 1 there is no weightage to newer shots
+MAD_TO_SD = 1.4826
+SPREAD_FLOOR = 0.1  #spread can't be smaller than this fraction of typical value to avoid spread being too low and giving very high z values
+
 
 def distance(x1, y1, x2, y2):
     return (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5
@@ -50,6 +55,26 @@ def threshold_score(value, breakpoints):
             frac = (value - v0) / (v1 - v0)
             return s0 + frac * (s1 - s0)
     return breakpoints[-1][1]
+
+def weighted_median(values, weights):
+    pairs = sorted(zip(values, weights))
+    half = sum(weights) / 2
+    running = 0
+    for v, w in pairs:
+        running += w
+        if running >= half:
+            return v
+
+
+def typical_and_spread(values):
+    n = len(values)
+    if n < MIN_BASELINE:
+        return None, None()
+    weights = [RECENCY_DECAY ** (n-i-1) for i in range(n)]
+    typical = weighted_median(values, weights)
+    mad = weighted_median([abs(v-typical) for v in values], weights)
+    spread = max(MAD_TO_SD*mad, SPREAD_FLOOR*typical)
+    return typical, spread
 
 
 class analyse():
@@ -132,9 +157,9 @@ class analyse():
             if angle_disp != -1:
                 angle_means.append(angle_disp)
 
-        wrist_avg, wrist_spread = self.mean_and_spread(wrist_means)
-        nose_avg, nose_spread = self.mean_and_spread(nose_means)
-        angle_avg, angle_spread = self.mean_and_spread(angle_means)
+        wrist_avg, wrist_spread = typical_and_spread(wrist_means)
+        nose_avg, nose_spread = typical_and_spread(nose_means)
+        angle_avg, angle_spread = typical_and_spread(angle_means)
 
         if wrist_avg is not None:
             wrist_avg *= 1000
@@ -150,7 +175,7 @@ class analyse():
                  "angle": (angle_avg, angle_spread)}
         return mystr, stats
 
-    def mean_and_spread(self, values):
+    def mean_and_spread(self, values): # not used anymore
         if len(values) == 0:
             return None, None
         mean_val = sum(values) / len(values)
