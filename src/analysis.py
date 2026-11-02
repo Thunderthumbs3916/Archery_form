@@ -1,6 +1,10 @@
 import math
 import json
 
+WRIST_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (16, 70), (30, 40), (32, 20)]
+NOSE_QUALITY_BREAKPOINTS = [(0, 100), (25, 90), (40, 70), (60, 40)]
+ANGLE_QUALITY_BREAKPOINTS = [(0, 100), (8, 90), (10, 80), (20, 50)]
+
 
 def distance(x1, y1, x2, y2):
     return (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5
@@ -34,21 +38,19 @@ def displacement(list):
 
         return tot / len(list)
 
+
 def threshold_score(value, breakpoints):
     if value <= breakpoints[0][0]:
         return breakpoints[0][1]
 
     for i in range(1, len(breakpoints)):
-        v0, s0 = breakpoints[i-1]
+        v0, s0 = breakpoints[i - 1]
         v1, s1 = breakpoints[i]
         if value <= v1:
-            frac = (value-v0) / (v1-v0)
-            return s0 + frac*(s1-s0)
+            frac = (value - v0) / (v1 - v0)
+            return s0 + frac * (s1 - s0)
     return breakpoints[-1][1]
 
-WRIST_QUALITY_BREAKPOINTS = [(0, 100), (6, 90), (16, 70), (30, 40), (32, 20)]
-NOSE_QUALITY_BREAKPOINTS = [(0, 100), (25, 90), (40, 70), (60, 40)]
-ANGLE_QUALITY_BREAKPOINTS = [(0, 100), (8, 90), (10, 80), (20, 50)]
 
 class analyse():
     def __init__(self):
@@ -104,7 +106,8 @@ class analyse():
         except FileNotFoundError:
             curr_samples = {}
 
-        curr_samples[shot_key] = {"small_str": shot_str, "combined": combined_str, "score": score, "quality": quality, "consistency": consistency}
+        curr_samples[shot_key] = {"small_str": shot_str, "combined": combined_str, "score": score, "quality": quality,
+                                  "consistency": consistency}
 
         with open('data/samples.json', "w") as f:
             json.dump(curr_samples, f, indent=2)
@@ -114,7 +117,7 @@ class analyse():
         nose_means = []
         angle_means = []
 
-        for shot in all_shots.values():
+        for shot in list(all_shots.values())[:-1]:
             data = shot["Anchor"]
 
             wrist_disp = self.mean_displacement(data, "draw_wrist")
@@ -147,13 +150,12 @@ class analyse():
                  "angle": (angle_avg, angle_spread)}
         return mystr, stats
 
-
     def mean_and_spread(self, values):
-        if len(values)==0:
+        if len(values) == 0:
             return None, None
-        mean_val = sum(values)/len(values)
-        tot = sum(abs(v-mean_val) for v in values)
-        return mean_val, tot/len(values)
+        mean_val = sum(values) / len(values)
+        tot = sum(abs(v - mean_val) for v in values)
+        return mean_val, tot / len(values)
 
     def quality_score(self, wrist_disp, nose_disp, angle_disp):
         scores = []
@@ -166,7 +168,7 @@ class analyse():
 
         if len(scores) == 0:
             return None
-        return sum(scores)/len(scores)
+        return sum(scores) / len(scores)
 
     def consistency_score(self, wrist_disp, nose_disp, angle_disp, stats):
         scores = []
@@ -180,12 +182,15 @@ class analyse():
             if spread == 0:
                 scores.append(100)
             else:
-                deviation = abs(value - mean_val) / spread
-                scores.append(100 / (1+deviation))
+                deviation = max(0, value - mean_val) / spread
+                scores.append(100 / (1 + deviation))
 
         if len(scores) == 0:
             return None
-        return sum(scores)/len(scores)
+        product = 1
+        for val in scores:
+            product *= val
+        return product ** (1 / 3)
 
     def shot_score(self, wrist_disp, nose_disp, angle_disp, stats):
         quality = self.quality_score(wrist_disp, nose_disp, angle_disp)
@@ -194,10 +199,10 @@ class analyse():
         if quality is None and consistency is None:
             return None, None, None
         if quality is None:
-            return consistency
+            return consistency, None, consistency
         if consistency is None:
-            return quality
-        return (quality + consistency)/2 , quality, consistency
+            return quality, quality, None
+        return (quality + consistency) / 2, quality, consistency
 
     def mean_visibility(self, points: dict, part):
         total = 0
@@ -206,9 +211,9 @@ class analyse():
             if "visibility" in frame:
                 total += frame["visibility"]
                 count += 1
-        if count==0:
+        if count == 0:
             return None
-        return total/count
+        return total / count
 
     def mean_position(self, points: dict, part):
         totx = 0
